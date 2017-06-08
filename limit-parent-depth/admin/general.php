@@ -5,13 +5,28 @@ if(isset($_POST["parent-limit"]))
 	//Set the option
     if(!add_option("limitparentdepth_limit", $_POST["parent-limit"]))
         update_option("limitparentdepth_limit", $_POST["parent-limit"]);
+		
+	//Set the option
+    if(!add_option("limitparentdepth_limit-parent-selector", (isset($_POST["limit-parent-selector"]) ? 1 : 0)))
+        update_option("limitparentdepth_limit-parent-selector", (isset($_POST["limit-parent-selector"]) ? 1 : 0));
+		
+	//Set the option
+    if(!add_option("limitparentdepth_limit-menu-level", (isset($_POST["limit-menu-level"]) ? 1 : 0)))
+        update_option("limitparentdepth_limit-menu-level", (isset($_POST["limit-menu-level"]) ? 1 : 0));
+		
+		
+
+	//Set "Do not use preset", first save
+    add_option("limitparentdepth_firstSave", 1);
 
     //Show success
     limitparentdepth_post_success(__( 'The settings have been saved!', 'limitparentdepth' ));
 }
 
 //Get the option
-$level = intval(get_option('limitparentdepth_limit'));
+$limit = getLimit();
+$limitParentSelector = intval(get_option('limitparentdepth_limit-parent-selector'));
+$limitMenuLevel = intval(get_option('limitparentdepth_limit-menu-level'));
 ?>
 	<div class="wrap">
 
@@ -31,15 +46,19 @@ $level = intval(get_option('limitparentdepth_limit'));
 					<strong>Depth Limit:</strong>
 					<br />
                     <select name="parent-limit">
-                        <option value="0" '.($level == 0 ? 'selected' : '').'>Only top level</option>
-                        <option value="1" '.($level == 1 ? 'selected' : '').'>First level</option>
-                        <option value="2" '.($level == 2 ? 'selected' : '').'>Second level</option>
-                        <option value="3" '.($level == 3 ? 'selected' : '').'>Third level</option>
-                        <option value="4" '.($level == 4 ? 'selected' : '').'>Fourth level</option>
-                        <option value="5" '.($level == 5 ? 'selected' : '').'>Fift level</option>
-                        <option value="6" '.($level == 6 ? 'selected' : '').'>Sixth level</option>
-                        <option value="7" '.($level == 7 ? 'selected' : '').'>Seventh level</option>
+                        <option value="-1" '.($limit == -1 ? 'selected' : '').'>Do not allow nesting</option>
+                        <option value="0" '.($limit == 0 ? 'selected' : '').'>Only top level</option>
+                        <option value="1" '.($limit == 1 ? 'selected' : '').'>First level</option>
+                        <option value="2" '.($limit == 2 ? 'selected' : '').'>Second level</option>
+                        <option value="3" '.($limit == 3 ? 'selected' : '').'>Third level</option>
+                        <option value="4" '.($limit == 4 ? 'selected' : '').'>Fourth level</option>
+                        <option value="5" '.($limit == 5 ? 'selected' : '').'>Fift level</option>
+                        <option value="6" '.($limit == 6 ? 'selected' : '').'>Sixth level</option>
+                        <option value="7" '.($limit == 7 ? 'selected' : '').'>Seventh level</option>
                     </select>
+					<br />
+					<br /><input type="checkbox" name="limit-parent-selector" '.($limitParentSelector ? 'checked' : '').'/>Limit parent selector dropdown
+					<br /><input type="checkbox" name="limit-menu-level" '.($limitMenuLevel ? 'checked' : '').'/>Limit menu builder
 				</p>
 				<p>
 					<input type="submit" value="'.__( 'Save settings', 'limitparentdepth' ).'" class="button button-primary button-large" />
