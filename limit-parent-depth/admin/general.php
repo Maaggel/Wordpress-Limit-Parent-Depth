@@ -40,7 +40,7 @@ $limitMenuLevel = intval(get_option('limitparentdepth_limit-menu-level'));
 			<?php post_admin_meta_box(__( 'Limit Parent Depth Settings', 'limitparentdepth' ), '
 				<h2>Settings</h2>
 				<p>
-					<i>Here you can limit the depth of the parent selector in the pages.</i>
+					<i>Here you can limit the depth of the parent selector and menu builder.</i>
 				</p>
                 <p>
 					<strong>Depth Limit:</strong>
