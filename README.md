@@ -1,5 +1,5 @@
 # Wordpress plugin: Limit Parent Depth
-Limit the Parent depth so that only a certain level limit can be selected from the dropdown
+Limit the Parent selector, and menu builder depth to a selected max level
 
 ## Usage
 Add the folder "limit-parent-depth" to /wp-content/plugins, and go to the plugin page to activate it.
