@@ -20,4 +20,4 @@ Feel free to submit an issue if you find any problems or bugs, but since this is
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Maaggel/debug/blob/master/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Maaggel/Wordpress-Limit-Parent-Depth/blob/master/LICENSE) file for details
