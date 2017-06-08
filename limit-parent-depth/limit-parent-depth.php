@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Limit Parent Depth
  * Text Domain: limitparentdepth
- * Description: Limit the Parent depth so that only a certain level limit can be selected from the dropdown
+ * Description: Limit the Parent selector, and menu builder depth to a selected max level
  * Author:      Mikkel Bundgaard @ Inspire Me
  * Author URI:  http://inspireme.dk/
  * Version:     1.0.0
@@ -27,14 +27,14 @@ function limitparentdepth_admin_head_javascript()
         <script type="text/javaScript">
             //Limit the dropdown
             jQuery(document).ready(function($) {
-                //Hide all
+                //Hide dropdowns
                 $("#parent_id option:not(:first)").hide();
                 $("#post_parent option:not(:first)").hide();
 
                 //Show the valid once
                 for(var i = 0; i < '.$limit.'; i++)
                 {
-                    //Hide this
+                    //Show this
                     $("#parent_id .level-"+i).show();
                     $("#post_parent .level-"+i).show();
                 }
@@ -43,6 +43,21 @@ function limitparentdepth_admin_head_javascript()
     ';
 }
 add_action('admin_head', 'limitparentdepth_admin_head_javascript');
+
+//Limit max menu depth in admin panel
+function limitparentdepth_limit_menu_depth($hook)
+{
+    //Globalize
+    global $limit;
+
+    //Return if wrong hook
+    if($hook != 'nav-menus.php')
+        return;
+
+    //Override default value right after 'nav-menu' JS
+    wp_add_inline_script('nav-menu', 'wpNavMenu.options.globalMaxDepth = '.$limit.';', 'after');
+}
+add_action('admin_enqueue_scripts', 'limitparentdepth_limit_menu_depth');
 
 //Add menu items
 function limitparentdepth_add_admin_item() {
